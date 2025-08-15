@@ -1,0 +1,24 @@
+2025-08-12 15:36:05,590 - INFO - Succesfully read the YAML file
+2025-08-12 15:36:05,591 - INFO - Data Ingestion Initialized
+2025-08-12 15:36:05,591 - INFO - Starting Data Ingestion Process...
+2025-08-12 15:36:08,693 - ERROR - Error while downloading data from GCP: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-08-12 15:36:08,694 - INFO - Data Ingestion DONE
+2025-08-12 15:37:55,363 - INFO - Succesfully read the YAML file
+2025-08-12 15:37:55,364 - INFO - Data Ingestion Initialized
+2025-08-12 15:37:55,374 - INFO - Starting Data Ingestion Process...
+2025-08-12 15:38:00,105 - INFO - Downloaded smaller file: anime.csv
+2025-08-12 15:38:05,397 - INFO - Downloaded smaller file: anime_with_synopsis.csv
+2025-08-12 15:55:53,278 - INFO - Succesfully read the YAML file
+2025-08-12 15:55:53,279 - INFO - Data Ingestion Initialized
+2025-08-12 15:55:53,279 - INFO - Starting Data Ingestion Process...
+2025-08-12 15:55:56,460 - ERROR - Error while downloading data from GCP: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-08-12 15:55:56,460 - INFO - Data Ingestion DONE
+2025-08-12 15:57:27,715 - INFO - Succesfully read the YAML file
+2025-08-12 15:57:27,715 - INFO - Data Ingestion Initialized
+2025-08-12 15:57:27,715 - INFO - Starting Data Ingestion Process...
+2025-08-12 15:57:33,908 - INFO - Downloaded smaller file: anime.csv
+2025-08-12 15:57:38,204 - INFO - Downloaded smaller file: anime_with_synopsis.csv
+2025-08-12 15:57:38,205 - INFO - Large file 'animelist.csv' detected — streaming only 5M rows.
+2025-08-12 15:58:50,457 - INFO - Saved first 5M rows of 'animelist.csv' to artifacts/raw\animelist.csv
+2025-08-12 15:58:50,465 - INFO - Data Ingestion Completed Successfully
+2025-08-12 15:58:50,465 - INFO - Data Ingestion DONE

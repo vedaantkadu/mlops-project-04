@@ -1,0 +1,4 @@
+2025-08-10 23:58:21,349 - INFO - This is an INFO log message.
+2025-08-10 23:58:21,350 - WARNING - This is a WARNING log message.
+2025-08-10 23:58:21,350 - ERROR - This is an ERROR log message.
+2025-08-10 23:58:21,351 - ERROR - Caught CustomException: Error in C:\Users\Vedant Kadu\OneDrive\Desktop\project_04\test.py , line 21 : division by zero
