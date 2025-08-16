@@ -4,8 +4,6 @@ pipeline {
     environment {
         VENV_DIR = 'venv'
         GCP_PROJECT = 'alpine-proton-467708-f6'
-        REGION = 'us-central1'
-        REPO = 'my-docker-repo' // Artifact Registry repo name
         IMAGE = 'ml-anime-project'
         GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
     }
@@ -46,7 +44,7 @@ pipeline {
             }
         }
 
-        stage("Build & Push Image") {
+        stage("Build & Push Image to GCR") {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     sh """
@@ -54,12 +52,12 @@ pipeline {
                         gcloud auth activate-service-account --key-file=\${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         
-                        # Configure Docker for Artifact Registry
-                        gcloud auth configure-docker ${REGION}-docker.pkg.dev --quiet
+                        # Configure Docker for GCR
+                        gcloud auth configure-docker --quiet
                         
-                        # Build and push
-                        docker build -t ${REGION}-docker.pkg.dev/${GCP_PROJECT}/${REPO}/${IMAGE}:latest .
-                        docker push ${REGION}-docker.pkg.dev/${GCP_PROJECT}/${REPO}/${IMAGE}:latest
+                        # Build and push to GCR
+                        docker build -t gcr.io/${GCP_PROJECT}/${IMAGE}:latest .
+                        docker push gcr.io/${GCP_PROJECT}/${IMAGE}:latest
                     """
                 }
             }
@@ -72,7 +70,7 @@ pipeline {
                         export PATH=\$PATH:${GCLOUD_PATH}
                         gcloud auth activate-service-account --key-file=\${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
-                        gcloud container clusters get-credentials anime-2507 --region ${REGION}
+                        gcloud container clusters get-credentials anime-2507 --region us-central1
                         kubectl apply -f deployment.yaml
                     """
                 }
