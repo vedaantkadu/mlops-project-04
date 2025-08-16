@@ -3,6 +3,9 @@ pipeline {
 
     environment {
         VENV_DIR = 'venv'
+        GCP_PROJECT = 'alpine-proton-467708-f6'
+        GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
+        KUBECTL_AUTH_PLUGIN = "/usr/lib/google-cloud-sdk/bin"
     }
 
     stages{
@@ -27,6 +30,19 @@ pipeline {
                     pip install -e .
                     pip install  dvc
                     '''
+                }
+            }
+        }
+        stage('DVC Pull'){
+            steps{
+                withCredentials([file(credentialsId:'gcp-key' , variable: 'GOOGLE_APPLICATION_CREDENTIALS' )]){
+                    script{
+                        echo 'DVC Pul....'
+                        sh '''
+                        . ${VENV_DIR}/bin/activate
+                        dvc pull
+                        '''
+                    }
                 }
             }
         }
