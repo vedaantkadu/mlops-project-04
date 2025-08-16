@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: ml-app-container
-        image: gcr.io/alpine-proton-467708-f6/ml-anime-project:latest
+        image: us-central1-docker.pkg.dev/alpine-proton-467708-f6/my-docker-repo/ml-anime-project:latest
         ports:
         - containerPort: 5000  
 ---
