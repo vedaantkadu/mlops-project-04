@@ -6,6 +6,8 @@ pipeline {
         GCP_PROJECT = 'alpine-proton-467708-f6'
         IMAGE = 'ml-anime-project'
         GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
+        CLUSTER_NAME = 'mlops-anime-project'
+        CLUSTER_REGION = 'us-central1'
     }
 
     stages {
@@ -51,14 +53,13 @@ pipeline {
                         export PATH=\$PATH:${GCLOUD_PATH}
                         gcloud auth activate-service-account --key-file=\${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
-                        
+
                         # Configure Docker for GCR
                         gcloud auth configure-docker --quiet
-                        
-                        # Build and push to GCR
+
+                        # Build and push Docker image
                         docker build -t gcr.io/${GCP_PROJECT}/${IMAGE}:latest .
                         docker push gcr.io/${GCP_PROJECT}/${IMAGE}:latest
-                        
                     """
                 }
             }
@@ -71,8 +72,12 @@ pipeline {
                         export PATH=\$PATH:${GCLOUD_PATH}
                         gcloud auth activate-service-account --key-file=\${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
-                        gcloud container clusters get-credentials mlops-anime-project --region us-central1
-                        kubectl apply -f deployment.yaml
+
+                        # Get cluster credentials
+                        gcloud container clusters get-credentials ${CLUSTER_NAME} --region ${CLUSTER_REGION}
+
+                        # Apply deployment with Autopilot-safe options
+                        kubectl apply -f deployment.yaml --validate=false --request-timeout=2m
                     """
                 }
             }
